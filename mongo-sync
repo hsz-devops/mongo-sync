@@ -154,7 +154,6 @@ function pull {
         -u "$local_access_username" \
         -p "$local_access_password" \
         --authenticationDatabase "admin" \
-        --excludeCollectionsWithPrefix=system \
         --drop > /dev/null
     success_msg
 
