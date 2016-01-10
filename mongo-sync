@@ -141,11 +141,21 @@ function pull {
         -d "$remote_db" \
         -u "$remote_access_username" \
         -p "$remote_access_password" \
+        --authenticationDatabase "admin" \
+        --excludeCollectionsWithPrefix=system \
         -o "$TMPDIR" > /dev/null
     success_msg
 
     echo "Overwriting Local DB... "
-    mongorestore -d "$local_db" --port "$local_host_port" "$TMPDIR"/"$remote_db" --drop > /dev/null
+    mongorestore \
+        -d "$local_db" \
+        --port "$local_host_port" \
+        "$TMPDIR"/"$remote_db" \
+        -u "$local_access_username" \
+        -p "$local_access_password" \
+        --authenticationDatabase "admin" \
+        --excludeCollectionsWithPrefix=system \
+        --drop > /dev/null
     success_msg
 
     cleanup
